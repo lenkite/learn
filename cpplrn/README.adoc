@@ -1,0 +1,1053 @@
+= C++ Notes
+Tarun Elankath <dev@elankath.com>
+Version 0.2, 2020-11-20
+:toc:
+C++ Notes
+
+== Strings
+
+
+=== Use zstring and czstring for C-style,zero-terminated strings.
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#f25-use-a-zstring-or-a-not_nullzstring-to-designate-a-c-style-string
+C-style strings are ubiquitous.
+They are defined by convention: zero-terminated arrays of characters.
+We must distinguish C-style strings from a pointer to a single character or an old-fashioned pointer to an array of characters.
+If you don't need null termination, use string_view.
+
+[source,cpp]
+----
+/* When I call length(s) should I check if s is nullptr first?
+ Should the implementation of length() check if p is nullptr? */
+int length(const char* p);
+
+// the implementor of length() must assume that p == nullptr is possible
+int length(zstring p);
+
+// it is the caller's job to make sure p != nullptr
+int length(not_null<zstring> p);
+----
+
+== Lang Features
+
+=== auto
+
+* The auto specifier is only a placeholder for the type, not for the const/ volatile and references specifiers.
+If you need a const/volatile and/or reference type, then you need to specify them explicitly.
+
+[source,cpp]
+----
+class foo {
+    int x_;
+public:
+    foo(int const x = 0) :x_{ x } {}
+    int& get() { return x_; }
+};
+foo f(42);
+auto x = f.get(); //type deduced as int and not int&
+x = 100;
+std::cout << f.get() << '\n'; // prints 42
+auto proxy_get(foo& f) { return f.get(); }
+auto& x = proxy_get(f); // cannot convert from 'int' to 'int &'
+----
+* This leads to problems with `auto` as a placeholder for the return type from a function.
+To fix this, we need to actually return `auto&`. But this is a problem with templates and
+perfect forwarding the return type without knowing whether its a value or a reference. The
+solution to this problem in C++14 is decltype(auto), which will correctly deduce the type:
+
+Reference : cppmove.pdf, Chapter 12: Perfect Returning with decltype(auto)
+[source,cpp]
+----
+decltype(auto) proxy_get(foo& f) { return f.get(); }
+auto f = foo{ 42 };
+decltype(auto) x = proxy_get(f);
+----
+* auto with generic lambda
+The below lambda can be used to add anything for which the `operator+` is defined,
+
+[source,cpp]
+----
+auto ladd = [] (auto const a, auto const b) { return a + b; };
+struct {
+    template<typename T, typename U>
+    auto operator () (T const a, U const b) const { return a+b; }
+} L;
+auto i = ladd(40, 2); // 42
+auto s = ladd("forty"s, "two"s); // "fortytwo"s
+----
+
+=== using
+
+* Introduce all the identifiers of a scoped enumeration in the local scope with a using directive
+
+[source,cpp]
+----
+struct foo {
+  enum class Status { Unknown, Created, Connected };
+  using enum Status;
+};
+foo::Status s = foo::Created;  // instead of  foo::Status::Created
+----
+* Use a using enum directive to introduce the enum identifiers in a switch statement to simplify your code:
+
+[source,cpp]
+----
+void process(Status const s) {
+  switch (s) {
+    using enum Status;
+  case Unknown:
+    break;
+  case Created:
+    break;
+  case Connected:
+    break;
+  }
+}
+----
+
+== Pointers, Ownership
+
+=== GSL owner
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i11-never-transfer-ownership-by-a-raw-pointer-t-or-reference-t
+
+[source,cpp]
+----
+X* compute(args)    // don't
+{
+    X* res = new X{};
+    // ...
+    return res; // Who deletes the returned X
+}
+owner<X*> compute(args)    // It is now clear that ownership is transferred
+{
+// This tells analysis tools that res is an owner. That is, its value must be deleted or transferred to another owner, as is done here by the return.
+    owner<X*> res = new X{};
+    // ...
+    return res;
+}
+----
+
+=== not_null
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i12-declare-a-pointer-that-must-not-be-null-as-not_null
+
+[source,cpp]
+----
+int length(const char* p);            // it is not clear whether length(nullptr) is valid
+length(nullptr);                      // OK?
+int length(not_null<const char*> p);  // better: we can assume that p cannot be nullptr
+int length(const char* p);            // we must assume that p can be nullptr
+----
+
+=== Pointers and References
+
+==== For general use, take T* or T& arguments rather than smart pointers
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#f7-for-general-use-take-t-or-t-arguments-rather-than-smart-pointers
+
+Passing a smart pointer transfers or shares ownership and should only be used when ownership semantics are intended.
+A function that does not manipulate lifetime should take raw pointers or references instead.
+
+Obviously don't T* and T& to async functions, ie lifetime of pointer should be valid.
+
+[source,cpp]
+----
+// accepts any int*
+void f(int*);
+
+// can only accept ints for which you want to transfer ownership
+void g(unique_ptr<int>);
+
+// can only accept ints for which you are willing to share ownership
+void g(shared_ptr<int>);
+
+// doesn't change ownership, but requires a particular ownership of the caller
+void h(const unique_ptr<int>&);
+
+// accepts any int
+void h(int&);
+----
+
+==== Prefer T* over T& when "no argument" is a valid option
+
+A pointer (T*) can be a nullptr and a reference (T&) cannot, there is no valid "null reference".
+Sometimes having nullptr as an alternative to indicated "no object" is useful, but if it is not, a reference is notationally simpler and might yield better code.
+
+[source,cpp]
+----
+string zstring_to_string(zstring p) // zstring is a char*; that is a C-style string
+{
+    if (!p) return string{};    // p might be nullptr; remember to check
+    return string{p};
+}
+
+void print(const vector<int>& r)
+{
+    // r refers to a vector<int>; no check needed
+}
+----
+
+==== Return a T* to indicate a position only
+
+That's what pointers are good for.
+Returning a T* to transfer ownership is a misuse.
+*Note* Do NOT return a pointer to something that is not in the caller's scope
+
+[source,cpp]
+----
+Node* find(Node* t, const string& s)  // find s in a binary tree of Nodes
+{
+    if (!t || t->name == s) return t;
+    if ((auto p = find(t->left, s))) return p;
+    if ((auto p = find(t->right, s))) return p;
+    return nullptr; // possibly better to use std::optional ?
+}
+----
+
+==== Return a T& when copy is undesirable and "returning no object" isn't needed
+
+*Note:* The return of a reference must not imply transfer of ownership
+
+[source,cpp]
+----
+class Car {
+    array<wheel, 4> w;
+    // ...
+public:
+    wheel& get_wheel(int i) { Expects(i < w.size()); return w[i]; }
+    // ...
+};
+void use() {
+    Car c;
+    wheel& w0 = c.get_wheel(0); // w0 has the same lifetime as c
+}
+----
+
+=== std::unique_ptr
+
+Use a unique_ptr<T> to transfer ownership where a pointer is needed Using unique_ptr is the cheapest way to pass a pointer safely.
+
+[source,cpp]
+----
+unique_ptr<Shape> get_shape(istream& is)  // assemble shape from input stream
+{
+    auto kind = read_header(is); // read header and identify the next shape on input
+    switch (kind) {
+    case shape_constants.circle:
+        return make_unique<Circle>(is);
+    case shape_constants.triangle:
+        return make_unique<Triangle>(is);
+    // ...
+    }
+}
+----
+
+== Functions
+
+=== Function Parameters
+
+==== Function Parameters should be strongly typed
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i4-make-interfaces-precisely-and-strongly-typed
+
+[source,cpp]
+----
+draw_rect(100, 200, 100, 500); // BAD: what do the numbers specify?
+draw_rect(p.x, p.y, 10, 20); // BAD: what units are 10 and 20 in?
+
+void draw_rectangle(Point top_left, Point bottom_right);
+void draw_rectangle(Point top_left, Size height_width);
+
+draw_rectangle(p, Point{10, 20});  // GOOD: two corners
+draw_rectangle(p, Size{10, 20});   // GOOD: one corner and a (height, width) pair
+
+set_settings(true, false, 42); // BAD: what do the numbers specify?
+
+alarm_settings s{}; //GOOD: safe and legible.
+s.enabled = true;
+s.displayMode = alarm_settings::mode::spinning_light;
+s.frequency = alarm_settings::every_10_seconds;
+set_settings(s);
+
+//For the case of a set of boolean values consider using a flags enum; a pattern that expresses a set of boolean values.
+enable_lamp_options(lamp_option::on | lamp_option::animate_state_transitions);
+
+
+// In the following example, it is not clear from the interface what time_to_blink means: Seconds? Milliseconds?
+
+void blink_led(int time_to_blink) // bad -- the unit is ambiguous
+{
+    // ...
+    // do something with time_to_blink
+    // ...
+}
+void use()
+{
+    blink_led(2);
+}
+// std::chrono::duration types helps making the unit of time duration explicit.
+void blink_led(milliseconds time_to_blink) // good -- the unit is explicit
+{
+    // ...
+    // do something with time_to_blink
+    // ...
+}
+void use()
+{
+    blink_led(1500ms);
+}
+template<class rep, class period>
+void blink_led(duration<rep, period> time_to_blink) // good -- accepts any unit
+{
+    // assuming that millisecond is the smallest relevant unit
+    auto milliseconds_to_blink = duration_cast<milliseconds>(time_to_blink);
+    // ...
+    // do something with milliseconds_to_blink
+    // ...
+}
+
+void use()
+{
+    blink_led(2s);
+    blink_led(1500ms);
+}
+----
+
+==== Avoid too many parameters
+
+Define a struct as the parameter type and name the fields for those parameters accordingly:
+
+[source,cpp]
+----
+struct SystemParams {
+    string config_file;
+    string output_path;
+    seconds timeout;
+};
+void initialize(SystemParams p);
+----
+
+==== Parameter Passing
+
+See link:cpp_param_ref.pdf[CPP Param]
+
+==== Leverage Pre Conditions and Post Conditions
+
+[source,cpp]
+----
+double sqrt(double x) { Expects(x >= 0); /* ... */ }
+int area(int height, int width) {
+    Expects(height > 0 && width > 0);            // good
+}
+int area(int height, int width)
+{
+    auto res = height * width;
+    Ensures(res > 0);
+    return res;
+}
+// Famous security bug
+void f()    // PROBLEMATIC
+{
+    char buffer[MAX];
+    // ...
+    memset(buffer, 0, sizeof(buffer)); //optimizer eliminated the apparently redundant memset() call:
+}
+void f()    // BETTER
+{
+    char buffer[MAX];
+    // ...
+    memset(buffer, 0, sizeof(buffer));
+    Ensures(buffer[0] == 0);
+}
+----
+
+=== Default Arguments
+
+==== Where there is a choice, prefer default arguments over overloading
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#f51-where-there-is-a-choice-prefer-default-arguments-over-overloading
+
+[source,cpp]
+----
+void print(const string& s, format f = {});
+// ABOVE is BETTER than BELOW
+void print(const string& s);  // use default format
+void print(const string& s, format f);
+
+----
+
+==== Do not provide different default arguments for a virtual function and an overrider
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#c140-do-not-provide-different-default-arguments-for-a-virtual-function-and-an-overrider
+
+[source,cpp]
+----
+class Base {
+public:
+    virtual int multiply(int value, int factor = 2) = 0;
+    virtual ~Base() = default;
+};
+class Derived : public Base {
+public:
+    int multiply(int value, int factor = 10) override;
+};
+Derived d;
+Base& b = d;
+b.multiply(10);  // these two calls will call the same function but
+d.multiply(10);  // with different arguments and so different results
+----
+
+=== Leverage typedefs and using
+
+[source,cpp]
+----
+class Date {
+public:
+    Month month() const;  // do
+    int month();          // don't
+    // ...
+};
+----
+
+=== std::find Examples
+
+[source,cpp]
+----
+void f(vector<string>& v)
+{
+    string val;
+    cin >> val;
+    // ...
+    auto p = find(begin(v), end(v), val);  // better
+    // ...
+}
+----
+
+== Classes
+
+* Use class if the class has an invariant; use struct if the data members can vary independently0
+** Means that you need a custom constructor to enforce the invariant or throwing an exception otherwise.
+* Use class rather than struct if any member is non-public
+* Ensure that a copyable (value type) class has a default constructor
+* Prefer default constructors to be simple and non-throwing
+* Prefer in-class initializers to member initializers in constructors for constant initializers
+* Prefer initialization to assignment in constructors
+* Define and initialize member variables in the order of member declaration
+* Don’t define a default constructor that only initializes data members; use in-class member initializers instead.
+Using in-class member initializers lets the compiler generate the function for you.
+The compiler-generated function can be more efficient.
+* Use delegating constructors to represent common actions for all constructors of a class
+* Use a conventional class member declaration order.
+When declaring a class use the following order:
+** types: classes, enums, and aliases (using)
+** constructors, assignments, destructor
+** functions
+** data
+** Use `public` before `protected` before `private` order.
+
+[source,cpp]
+----
+struct Pair {  // the members can vary independently
+    string name;
+    int volume;
+};
+class Date {
+public:
+    // validate that {yy, mm, dd} is a valid date and initialize
+    Date(int yy, Month mm, char dd);
+    Date() = default; // default constructor for value types
+    // ...
+    int day() const;
+    Month month() const;
+private:
+    int dd = 1;
+    int mm = 1;
+    int yyyy = 1970;
+};
+class A {   // Good
+    string s1;
+public:
+    A(czstring p) : s1{p} { } // GOOD: directly construct (and the C-string is explicitly named)
+    // ...
+};
+class D {   // Best
+    string s1;
+public:
+    D(string_view v) : s1{v} { } // GOOD: directly construct
+    // ...
+};
+
+class Date2 {
+    int d;
+    Month m;
+    int y;
+public:
+    Date2(int dd, Month mm, year yy)
+        :d{dd}, m{mm}, y{yy}
+        { if (!valid(d, m, y)) throw Bad_date{}; }
+
+    Date2(int dd, Month mm)
+        :Date2{dd, mm, current_year()} {}
+    // ...
+};
+// If the “repeated action” is a simple initialization, conside an in-class member initializer.
+----
+
+=== Member Functions
+
+==== Only make a member if it needs direct access to the representation of a class
+
+[source,cpp]
+----
+class Date {
+    // ... relatively small interface ...
+};
+// helper functions:
+Date next_weekday(Date);
+bool operator==(Date, Date);
+----
+
+Exceptions:
+
+* The language requires operators `=, (), [], and ->` to be members.
+* Similarly, a set of functions could be designed to be used in a chain
+
+[source,cpp]
+----
+x.scale(0.5).rotate(45).set_color(Color::red); // needs private data access
+----
+
+==== Place helper functions in same namespace as class
+
+[source,cpp]
+----
+namespace chrono { // here we keep time-related services
+    class time { /* ... */ };
+    class date { /* ... */ };
+    // helper functions:
+    bool operator==(Date, Date);
+    Date next_weekday(Date);
+    // ...
+}
+----
+
+=== Abstract Classes
+
+====  Prefer pure abstract classes as interfaces to class hierarchies
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i25-prefer-abstract-classes-as-interfaces-to-class-hierarchies
+
+[source,cpp]
+----
+class Shape {    // better: Shape is a pure interface
+public:
+    virtual Point center() const = 0;   // pure virtual functions
+    virtual void draw() const = 0;
+    virtual void rotate(int) = 0;
+    // ...
+    // ... NO DATA MEMBERS ...
+    // ...
+    virtual ~Shape() = default;
+};
+----
+
+==== A base class destructor should be either public and virtual, or protected and non-virtual
+
+To prevent undefined behavior.
+If the destructor is public, then calling code can attempt to destroy a derived class object through a base class pointer, and the result is undefined if the base class's destructor is non-virtual.
+
+Other rules on destructors:
+
+- A destructor must not fail.
+- Make destructors noexcept
+
+[source,cpp]
+----
+struct Base {  // BAD: implicitly has a public non-virtual destructor
+    virtual void f();
+};
+struct D : Base {
+    string s {"a resource needing cleanup"};
+    ~D() { /* ... do some cleanup ... */ }
+    // ...
+};
+void use() {
+    unique_ptr<Base> p = make_unique<D>();
+    // ...
+} // BAD: p's destruction calls ~Base(), not ~D(), which leaks D::s and possibly more
+----
+
+== Operators
+
+=== Spaceship operator
+
+C++20 introduced default comparisons, aka the "spaceship" operator<=>, which allows you to request compiler-generated `</<=/==/!=/>=/ and/or >` operators with the obvious/naive(?) implementation...
+
+[source,cpp]
+----
+auto operator<=>(const my_class&) const = default;
+----
+
+The spaceship operator's default implementation compares data members in the lexical
+order `x`,`y`,`z` even if `z` is phyically placed by compiler at offset 0.
+[source,cpp]
+----
+class flat_land {
+ public:
+  auto operator<=>(const flat_land&) const = default;
+  int x;
+  int y;
+
+ private:
+  int z;
+};
+----
+Generally, the above is not a good idea: It is recommended as much as possible to put all data members at same visibility level.
+
+==== Always leverage std::tie for comparison
+
+otherwise you can run into the std::sort crash if you don't enforce _strict-weak order_ correctly.
+https://stackoverflow.com/questions/19757210/stdsort-from-algorithm-crashes
+
+Best way to avoid thinking about this is to leverage `std::tie`
+
+Add a `tie` member function to a class/struct.
+
+[source,cpp]
+----
+struct person {
+  std::string name;
+  int age;
+  auto tie() const {
+    return std::tie(name);  // comparisons are on name
+  }
+  auto operator<=>(person& o) const {
+    return this->tie() <=> o.tie();
+  }
+};
+void demo_sort_with_tie() {
+  using namespace std;
+  vector people = {person{"tre", 40}, {"Madhav", 42}, {"Vinay", 35}, {"Marco", 9}};
+  cout << "Unsorted:" << people << endl;
+  sort(begin(people), end(people));
+  cout << "Sorted  :" << people << endl;
+}
+----
+
+== Lambdas
+
+=== Capture by Reference for Local Lambdas
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#f52-prefer-capturing-by-reference-in-lambdas-that-will-be-used-locally-including-passed-to-algorithms
+
+Prefer capturing by reference in lambdas that will be used locally, including passed to algorithms
+
+[source,cpp]
+----
+// Here, a large object (a network message) is passed to an iterative algorithm,
+// and is it not efficient or correct to copy the message (which might not be copyable):
+std::for_each(begin(sockets), end(sockets), [&message](auto& socket)
+{
+    socket.send(message);
+});
+
+/*
+This is a simple three-stage parallel pipeline.
+Ea$h stage object encapsulates a worker thread and a queue, has a process function to enqueue work.
+It's destructor automatically blocks waiting for the queue to empty before ending the thread.
+*/
+void send_packets(buffers& bufs)
+{
+    stage encryptor([](buffer& b) { encrypt(b); });
+    stage compressor([&](buffer& b) { compress(b); encryptor.process(b); });
+    stage decorator([&](buffer& b) { decorate(b); compressor.process(b); });
+    for (auto& b : bufs) { decorator.process(b); }
+}  // automatically blocks waiting for pipeline to finish
+
+----
+
+=== Capture by value for Non-Local Lambdas
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#f53-avoid-capturing-by-reference-in-lambdas-that-will-be-used-non-locally-including-returned-stored-on-the-heap-or-passed-to-another-thread
+
+Pointers and references to locals shouldn't outlive their scope.
+Lambdas that capture by reference are just another place to store a reference to a local object, and shouldn't do so if they (or a copy) outlive the scope.
+
+[source,cpp]
+----
+int local = 42;
+// Want a reference to local.
+// Note, that after program exits this scope,
+// local no longer exists, therefore
+// process() call will have undefined behavior!
+thread_pool.queue_work([&] { process(local); }); // BAD !!
+thread_pool.queue_work([=] { process(local); }); // GOOD
+----
+
+=== If you capture this, capture all variables explicitly (no default capture)
+
+It's confusing.
+Writing [=] in a member function appears to capture by value, but actually captures data members by reference because it actually captures the invisible this pointer by value.
+If you meant to do that, write this explicitly.
+
+[source,cpp]
+----
+class my_class {
+    int x = 0;
+    // ...
+    void f() {
+        int i = 0;
+        // ...
+        auto lambda = [=] { use(i, x); };   // BAD: "looks like" copy/value capture
+        // [&] has identical semantics and copies the this pointer under the current rules
+        // [=,this] and [&,this] are not much better, and confusing
+        x = 42;
+        lambda(); // calls use(0, 42);
+        x = 43;
+        lambda(); // calls use(0, 43);
+        // ...
+        auto lambda2 = [i, this] { use(i, x); }; // ok, most explicit and least confusing
+        // ...
+    }
+};
+----
+
+== LifeTime
+
+=== Reference Lifetime Extension
+
+All temporary objects are destroyed as the last step in evaluating the full-expression that (lexically) contains the point where they were created, and if multiple temporary objects were created, they are destroyed in the order opposite to the order of creation.
+This is true even if that evaluation ends in throwing an exception.
+Exceptions:
+
+* The lifetime of a temporary object may be extended by binding to a const lvalue reference or to an rvalue reference (since C++11),
+* The lifetime of a temporary object created when evaluating the default arguments of a default constructor used to initialize an element of an array ends before the next element of the array begins
+
+https://www.j4nu5.com/posts/const-reference-to-temporary-objects/
+https://abseil.io/tips/107
+
+The C++ standard guarantees that binding a temporary to a const reference on the stack, extends the lifetime of the temporary to the lifetime of the const reference.
+
+[source,cpp]
+----
+int get_val() {
+    int x = 1;
+    return x;
+}
+
+int main() {
+    const int& x = get_val(); // OK!
+    std::cout << x << std::endl;
+    return 0;
+}
+----
+
+It works even when a direct public member of the temporary object is assigned to a const reference.
+
+[source,cpp]
+----
+struct person {
+  struct name {
+    std::string first_name_;
+    std::string last_name_;
+  } name_;
+};
+person birth(); {
+  const std::string &first_name = birth().name_.first_name_;
+  // do something with first_name_.
+} // first_name out of scope. The referred person went to grave here.
+----
+
+==== GOTCHAS: Chained Functions Break Reference Lifetime Extension
+
+*GOTCHA*: This doesn’t work when you’re getting the subobject indirectly: the compiler doesn’t look through function calls (getters or the like).
+The subobject form only works when you’re directly assigning from a public member variable subobject of the temporary.
+
+[source,cpp]
+----
+#include <iostream>
+#include <string>
+
+struct my_container {
+    std::string s;
+
+    my_container() {
+        s = "Init";
+        std::cout << "Constructed" << std::endl;
+    }
+
+    ~my_container() {
+        s = "UNSAFE";
+        std::cout << "Destructed" << std::endl;
+    }
+
+    const std::string& get_s() const {
+        return s;
+    }
+};
+
+int main() {
+    const std::string& s = my_container().get_s();
+    std::cout << s << std::endl;
+    return 0;
+}
+----
+
+[literal]
+Constructed Destructed UNSAFE
+
+Problem occurs with builder pattern.
+See:
+https://cpptruths.blogspot.com/2018/10/chained-functions-break-reference.html
+https://www.reddit.com/r/cpp/comments/9qms4n/chained_functions_break_reference_lifetime/
+and especially guidance to use separate builder and have a build method that returns by value.
+
+[source,cpp]
+----
+auto addr = AddressBuilder{}.Line1("...").Line2("").State("CA").Zip(12345).build();
+----
+
+== Utilities
+
+=== std::span
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#p7-catch-run-time-errors-early
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i13-do-not-pass-an-array-as-a-single-pointer
+
+[source,cpp]
+----
+void increment1(int* p, int n)    // bad: error-prone
+{
+    for (int i = 0; i < n; ++i) ++p[i];
+}
+void increment2(span<int> p)
+{
+    for (int& x : p) ++x;
+}
+void use1(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment1(a, m);   // maybe typo, maybe m <= n is supposed
+                        // but assume that m == 20
+    // ...
+}
+void use2(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment2({a, m});    // maybe typo, maybe m <= n is supposed
+    // ...
+}
+// Now, m < = n can be checked at the point of call (early) rather than later.
+// If all we had was a typo so that we meant to use n as the bound, the code could be further simplified (eliminating the possibility of an error):
+void use3(int m)
+{
+    const int n = 10;
+    int a[n] = {};
+    // ...
+    increment2(a);   // the number of elements of a need not be repeated
+    // ...
+}
+
+----
+
+[source,cpp]
+----
+void copy_n(const T* p, T* q, int n); // copy from [p:p+n) to [q:q+n)
+----
+
+What if there are fewer than `n` elements in the array pointed to by `q`?
+Then, we overwrite some probably unrelated memory.
+What if there are fewer than n elements in the array pointed to by `p`?
+Then, we read some probably unrelated memory.
+Either is undefined behavior and a potentially very nasty bug.
+
+=== std::invoke
+
+A generic helper for writing generic code that calls a callable, regardless of whether it is a function, a lambda, a operator or a member function.
+
+[source,cpp]
+----
+//include::include/learn/utilities.hpp[lines=7..32]
+//include snippet doesn't work due to: https://github.com/github/markup/issues/1095
+template <typename C, typename... Args> requires std::invocable<C, Args...>
+decltype(auto) call(C&& callable, Args&&... args)
+{
+  return std::invoke(std::forward<C>(callable), std::forward<Args>(args)...);
+}
+template <typename T>
+void print(const T& coll)
+{
+  std::cout << "elems: ";
+  for(const auto& elem : coll)
+  {
+    std::cout << elem << ' ';
+  }
+  std::cout << '\n';
+}
+void demo_std_invoke()
+{
+  std::vector<int> vals{0, 8, 15, 42, 13, -1, 0};
+  call([&vals] { std::cout << "size: " << vals.size() << '\n'; });
+  call(print<std::vector<int>>, vals);
+  call(&decltype(vals)::pop_back, vals);
+  call(print<std::vector<int>>, vals);
+  auto ai = std::atomic<int>(42); // error
+  std::cout << ai.operator int() << std::endl;
+}
+----
+
+== Design Patterns
+
+=== Singletons
+
+=== Use static for singletons
+
+https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#i3-avoid-singletons
+
+[source,cpp]
+----
+X& myX()
+{
+    static X my_x {3};
+    return my_x;
+}
+----
+
+=== Pimpl
+
+=== std::call_once
+
+https://en.cppreference.com/w/cpp/thread/call_once
+
+https://stackoverflow.com/a/19992704/120959
+
+[source,cpp]
+----
+void g() {
+ static std::once_flag flag2;
+ std::call_once(flag2, initializer());
+}
+----
+
+=== Immutable class in C++ with cheap copying
+
+The `foo` class below is quite DRY, because all the data is stored in immutable shared pointers which automatically know how to copy themselves around.
+All member functions of `foo` should be const.
+
+If follows the usual paradigm of creating a new version of the object every time you want to make a change.
+Copying `foo` is just a lightweight reference counter bump.
+
+This is nice if you need a lot of copies of something decently large but relatively rarely need to make changes.
+
+[source,cpp]
+----
+class foo {
+    struct foo_data {
+        string sender;
+        string recipient;
+    };
+    using foo_state = shared_ptr<const foo_data>;
+    foo_state state_;
+    foo(foo_state state) : state_(state) {}
+public:
+    foo change_sender(string sender) const {
+        auto new_state = make_shared<foo_data>(state_);
+        new_state->sender = move(sender);
+        return new_state;
+    }
+};
+----
+
+== Layout
+
+=== Alignment
+
+C++ compilers align variables based on the size of their data type.
+The standard only specifies the sizes of char, signed char, unsigned char, char8_t, and std::byte, which must be 1. It also requires that the size of short must be at least 16 bits, the size of long must be at least 32 bits, and that the size of long long must be at least 64 bits.
+
+It also requires that
+----
+1 == sizeof(char) <= sizeof(short) <= sizeof(int) <= sizeof(long) <= sizeof(long long)`.
+----
+
+Therefore, the size of most types are compiler- specific and may depend on the platform.
+Typically, these are 1 byte for `bool` and `char`, 2 bytes for `short`, 4 bytes for `int, long, and float`, 8 bytes for
+`double` and `long long`, and so on.
+When it comes to structures or unions, the alignment must match the size of the largest member in order to avoid performance issues.
+
+`foo1` and `foo2` are different sizes, but the alignment is the same—that is,
+`1`—because all data members are of the type char, which has a size of `1` byte.
+
+[source,cpp]
+----
+struct foo1 // size = 1, alignment = 1
+{           // foo1: +-+
+    char a; // members: |a|
+};
+
+struct foo2 // size = 2, alignment = 1
+{           // foo2: +-+-+
+    char a; // members |a|b|
+    char b;
+};
+
+struct foo3 // size = 8, alignment = 4
+{           // foo3: +----+----+
+    char a; // members: |a...|bbbb|
+    int b;  // . represents a byte of padding
+};
+struct foo3_ // equivalent compiler created structure
+{
+    char a;         // 1 byte
+    char _pad0[3];  // 3 bytes padding to put b on a 4-byte boundary
+    int b;          // 4 bytes
+};
+
+struct foo4 { // size = 24, alignment = 8
+              // foo4: +--------+--------+--------+--------+ //
+  int a;      // members: |aaaab...|cccc....|dddddddd|e.......|
+  char b;     // . represents a byte of padding
+  float c;
+  double d;
+  bool e;
+};
+struct foo4_ // equivalent compiler created structure
+{
+    int a;          // 4 bytes
+    char b;         // 1 byte
+    char _pad0[3];  // 3 bytes padding to put c on a 8-byte boundary
+    float c;        // 4 bytes
+    char _pad1[4];  // 4 bytes padding to put d on a 8-byte boundary
+    double d;       // 8 bytes
+    bool e;         // 1 byte
+    char _pad2[7];  // 7 bytes padding to make sizeof
+}
+struct foo5
+{  // size = 24, alignment = 8
+   // foo5: +--------+--------+--------+--------+ //
+   // members: |dddddddd|aaaacccc|be......|
+  double d;
+  int a;
+  float c;
+  char b;  // . represents a byte of padding
+  bool e;
+};
+void demo_structs1()
+{
+  using namespace std;
+  cout << "size(foo4)=" << sizeof(foo4) << endl;
+  cout << "size(foo5)=" << sizeof(foo5) << endl;
+}
+----
+8 bytes saved with re-ordering.
+----
+size(foo4)=32
+size(foo5)=24
+----
+
+
