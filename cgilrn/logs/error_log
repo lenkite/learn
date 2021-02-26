@@ -1,0 +1,278 @@
+[Sun Dec 20 03:06:35.769516 2020] [so:debug] [pid 29322] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:06:35.769893 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:06:35.770207 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:06:35.770562 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:06:35.770904 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:06:35.771225 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:06:35.771567 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:06:35.772323 2020] [so:debug] [pid 29322:tid 4604464576] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:06:35.772350 2020] [http2:trace1] [pid 29322:tid 4604464576] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:06:45.271905 2020] [so:debug] [pid 29395] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:06:45.272389 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:06:45.272766 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:06:45.273032 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:06:45.273320 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:06:45.273649 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:06:45.274076 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:06:45.274864 2020] [so:debug] [pid 29395:tid 4510776768] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:06:45.274892 2020] [http2:trace1] [pid 29395:tid 4510776768] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:12:09.375707 2020] [so:debug] [pid 29743] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:12:09.376329 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:12:09.376656 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:12:09.376952 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:12:09.377229 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:12:09.377551 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:12:09.377936 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:12:09.378732 2020] [so:debug] [pid 29743:tid 4449529280] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:12:09.378787 2020] [http2:trace1] [pid 29743:tid 4449529280] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:12:57.125848 2020] [so:debug] [pid 29967] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:12:57.126573 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:12:57.126869 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:12:57.127146 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:12:57.127410 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:12:57.127716 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:12:57.128043 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:12:57.128812 2020] [so:debug] [pid 29967:tid 4533128640] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:12:57.128840 2020] [http2:trace1] [pid 29967:tid 4533128640] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:13:22.179694 2020] [so:debug] [pid 30076] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:13:22.180681 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:13:22.181140 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:13:22.181494 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:13:22.181777 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:13:22.182118 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:13:22.182460 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:13:22.183237 2020] [so:debug] [pid 30076:tid 4630359488] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:13:22.183265 2020] [http2:trace1] [pid 30076:tid 4630359488] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:13:48.148958 2020] [so:debug] [pid 30213] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:13:48.149283 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:13:48.149574 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:13:48.149861 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:13:48.150172 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:13:48.150506 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:13:48.150841 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:13:48.151591 2020] [so:debug] [pid 30213:tid 4384452032] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:13:48.151633 2020] [http2:trace1] [pid 30213:tid 4384452032] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:15:54.546553 2020] [so:debug] [pid 30539] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:15:54.547302 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:15:54.547591 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:15:54.547865 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:15:54.548120 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:15:54.548524 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:15:54.548881 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:15:54.549587 2020] [so:debug] [pid 30539:tid 4545715648] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:15:54.549613 2020] [http2:trace1] [pid 30539:tid 4545715648] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:15:54.608889 2020] [http2:warn] [pid 30540:tid 4545715648] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:15:54.612479 2020] [mpm_event:notice] [pid 30540:tid 4545715648] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:15:54.612567 2020] [core:notice] [pid 30540:tid 4545715648] AH00094: Command line: '/usr/sbin/httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:15:54.612801 2020] [unixd:alert] [pid 30557:tid 4545715648] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:15:54.613750 2020] [unixd:alert] [pid 30558:tid 4545715648] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:15:54.614294 2020] [unixd:alert] [pid 30559:tid 4545715648] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:16:05.846669 2020] [authz_core:error] [pid 30558:tid 123145552629760] [client 127.0.0.1:49881] AH01630: client denied by server configuration: /usr/htdocs
+[Sun Dec 20 03:17:17.251427 2020] [so:debug] [pid 31043] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:17:17.251767 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:17:17.252177 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:17:17.252558 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:17:17.252821 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:17:17.253152 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:17:17.253471 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:17:17.254164 2020] [so:debug] [pid 31043:tid 4702485952] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:17:17.254201 2020] [http2:trace1] [pid 31043:tid 4702485952] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:17:17.307460 2020] [http2:warn] [pid 31044:tid 4702485952] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:17:17.307585 2020] [core:warn] [pid 31044:tid 4702485952] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:17:17.310442 2020] [mpm_event:notice] [pid 31044:tid 4702485952] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:17:17.310524 2020] [core:notice] [pid 31044:tid 4702485952] AH00094: Command line: '/usr/sbin/httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:17:17.310613 2020] [unixd:alert] [pid 31060:tid 4702485952] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:17:17.310997 2020] [unixd:alert] [pid 31061:tid 4702485952] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:17:17.312467 2020] [unixd:alert] [pid 31062:tid 4702485952] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:17:41.159604 2020] [authz_core:error] [pid 31061:tid 123145560662016] [client 127.0.0.1:49890] AH01630: client denied by server configuration: /usr/htdocs
+[Sun Dec 20 03:17:47.598495 2020] [authz_core:error] [pid 31062:tid 123145560662016] [client 127.0.0.1:49891] AH01630: client denied by server configuration: /usr/htdocs
+[Sun Dec 20 03:18:50.263272 2020] [mpm_event:notice] [pid 31044:tid 4702485952] AH00494: SIGHUP received.  Attempting to restart
+httpd: Could not open configuration file ./cgi.conf: No such file or directory
+[Sun Dec 20 03:19:07.207404 2020] [so:debug] [pid 31446] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:19:07.207823 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:19:07.208179 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:19:07.208458 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:19:07.208726 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:19:07.209060 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:19:07.209404 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:19:07.210119 2020] [so:debug] [pid 31446:tid 4705787328] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:19:07.210145 2020] [http2:trace1] [pid 31446:tid 4705787328] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:19:07.258098 2020] [http2:warn] [pid 31447:tid 4705787328] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:19:07.258197 2020] [core:warn] [pid 31447:tid 4705787328] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:19:07.259782 2020] [mpm_event:notice] [pid 31447:tid 4705787328] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:19:07.260320 2020] [core:notice] [pid 31447:tid 4705787328] AH00094: Command line: '/usr/sbin/httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:19:07.261425 2020] [unixd:alert] [pid 31463:tid 4705787328] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:07.261494 2020] [unixd:alert] [pid 31464:tid 4705787328] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:07.261533 2020] [unixd:alert] [pid 31465:tid 4705787328] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:14.328992 2020] [authz_core:error] [pid 31464:tid 123145463959552] [client 127.0.0.1:49896] AH01630: client denied by server configuration: /usr/htdocs
+[Sun Dec 20 03:19:30.565048 2020] [mpm_event:notice] [pid 31447:tid 4705787328] AH00494: SIGHUP received.  Attempting to restart
+httpd: Could not open configuration file ./cgi.conf: No such file or directory
+[Sun Dec 20 03:19:40.699671 2020] [so:debug] [pid 31654] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:19:40.699991 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:19:40.700257 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:19:40.700503 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:19:40.700744 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:19:40.701030 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:19:40.701327 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:19:40.702032 2020] [so:debug] [pid 31654:tid 4688907712] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:19:40.702058 2020] [http2:trace1] [pid 31654:tid 4688907712] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:19:40.749294 2020] [http2:warn] [pid 31655:tid 4688907712] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:19:40.749416 2020] [core:warn] [pid 31655:tid 4688907712] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:19:40.750951 2020] [mpm_event:notice] [pid 31655:tid 4688907712] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:19:40.751024 2020] [core:notice] [pid 31655:tid 4688907712] AH00094: Command line: '/usr/sbin/httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:19:40.752689 2020] [unixd:alert] [pid 31672:tid 4688907712] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:40.752768 2020] [unixd:alert] [pid 31671:tid 4688907712] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:40.752826 2020] [unixd:alert] [pid 31673:tid 4688907712] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:19:45.531425 2020] [authz_core:error] [pid 31671:tid 123145572978688] [client 127.0.0.1:49898] AH01630: client denied by server configuration: /usr/htdocs
+[Sun Dec 20 03:20:07.668098 2020] [mpm_event:notice] [pid 31655:tid 4688907712] AH00494: SIGHUP received.  Attempting to restart
+httpd: Could not open configuration file ./cgi.conf: No such file or directory
+[Sun Dec 20 03:20:13.387649 2020] [so:debug] [pid 31864] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:20:13.388010 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:20:13.388330 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:20:13.388619 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:20:13.388902 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:20:13.389229 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:20:13.389565 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:20:13.390315 2020] [so:debug] [pid 31864:tid 4618546624] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:20:13.390338 2020] [http2:trace1] [pid 31864:tid 4618546624] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:20:13.437747 2020] [http2:warn] [pid 31873:tid 4618546624] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:20:13.437859 2020] [core:warn] [pid 31873:tid 4618546624] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:20:13.439538 2020] [mpm_event:notice] [pid 31873:tid 4618546624] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:20:13.439616 2020] [core:notice] [pid 31873:tid 4618546624] AH00094: Command line: '/usr/sbin/httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:20:13.441027 2020] [unixd:alert] [pid 31889:tid 4618546624] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:20:13.441233 2020] [unixd:alert] [pid 31890:tid 4618546624] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:20:13.441318 2020] [unixd:alert] [pid 31891:tid 4618546624] (22)Invalid argument: AH02155: getpwuid: couldn't determine user name from uid -1, you probably need to modify the User directive
+[Sun Dec 20 03:22:01.678290 2020] [mpm_event:notice] [pid 31873:tid 4618546624] AH00494: SIGHUP received.  Attempting to restart
+httpd: Could not open configuration file ./cgi.conf: No such file or directory
+[Sun Dec 20 03:22:20.683183 2020] [so:debug] [pid 32202] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:22:20.683496 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:22:20.683782 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:22:20.684019 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:22:20.684250 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:22:20.684523 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:22:20.684808 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:22:20.685523 2020] [so:debug] [pid 32202:tid 4428078528] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:22:20.685550 2020] [http2:trace1] [pid 32202:tid 4428078528] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:22:20.733259 2020] [http2:warn] [pid 32203:tid 4428078528] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:22:20.733379 2020] [core:warn] [pid 32203:tid 4428078528] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:22:20.735260 2020] [mpm_event:notice] [pid 32203:tid 4428078528] AH00489: Apache/2.4.41 (Unix) configured -- resuming normal operations
+[Sun Dec 20 03:22:20.735324 2020] [core:notice] [pid 32203:tid 4428078528] AH00094: Command line: 'httpd -d . -e trace8 -f cgi.conf'
+[Sun Dec 20 03:23:23.699152 2020] [mpm_event:notice] [pid 32203:tid 4428078528] AH00494: SIGHUP received.  Attempting to restart
+httpd: Could not open configuration file ./cgi.conf: No such file or directory
+[Sun Dec 20 03:23:42.180884 2020] [so:debug] [pid 32678] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:23:42.181198 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:23:42.181458 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:23:42.181701 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:23:42.181941 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:23:42.182222 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:23:42.182512 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:23:42.183202 2020] [so:debug] [pid 32678:tid 4471479744] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:23:42.183228 2020] [http2:trace1] [pid 32678:tid 4471479744] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:23:42.184565 2020] [http2:warn] [pid 32678:tid 4471479744] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:23:42.189353 2020] [core:warn] [pid 32678:tid 4471479744] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:25:44.547704 2020] [so:debug] [pid 32826] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:25:44.548027 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:25:44.548312 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:25:44.548665 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:25:44.549063 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:25:44.549374 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:25:44.549705 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:25:44.550412 2020] [so:debug] [pid 32826:tid 4379446720] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:25:44.550438 2020] [http2:trace1] [pid 32826:tid 4379446720] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:25:44.551766 2020] [http2:warn] [pid 32826:tid 4379446720] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:25:44.556517 2020] [core:warn] [pid 32826:tid 4379446720] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:29:41.155268 2020] [so:debug] [pid 32965] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:29:41.155597 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:29:41.155863 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:29:41.156114 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:29:41.156358 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:29:41.156646 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:29:41.156947 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:29:41.157684 2020] [so:debug] [pid 32965:tid 4625833408] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:29:41.157713 2020] [http2:trace1] [pid 32965:tid 4625833408] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:29:41.158808 2020] [http2:warn] [pid 32965:tid 4625833408] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:29:41.158873 2020] [core:warn] [pid 32965:tid 4625833408] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:32:09.085612 2020] [so:debug] [pid 33576] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:32:09.085968 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:32:09.086259 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:32:09.086538 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:32:09.086815 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:32:09.087162 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:32:09.087514 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:32:09.088312 2020] [so:debug] [pid 33576:tid 4602428864] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:32:09.088344 2020] [http2:trace1] [pid 33576:tid 4602428864] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:32:09.089370 2020] [http2:warn] [pid 33576:tid 4602428864] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:32:09.089436 2020] [core:warn] [pid 33576:tid 4602428864] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:41:18.376482 2020] [so:debug] [pid 34230] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:41:18.376843 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:41:18.377135 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:41:18.377396 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:41:18.377654 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:41:18.378031 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:41:18.378308 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module alias_module from /usr/libexec/apache2/mod_alias.so
+[Sun Dec 20 03:41:18.378615 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:41:18.379354 2020] [so:debug] [pid 34230:tid 4762779072] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:41:18.379379 2020] [http2:trace1] [pid 34230:tid 4762779072] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:41:18.380454 2020] [http2:warn] [pid 34230:tid 4762779072] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:41:18.380515 2020] [core:warn] [pid 34230:tid 4762779072] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:41:32.311985 2020] [cgi:error] [pid 34230:tid 123145397837824] [client 127.0.0.1:50130] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello
+[Sun Dec 20 03:41:34.857975 2020] [cgi:error] [pid 34230:tid 123145398910976] [client 127.0.0.1:50131] AH02812: attempt to invoke directory as script: /Users/i034796/src/learn/cgilrn/service
+[Sun Dec 20 03:41:39.619974 2020] [cgi:error] [pid 34230:tid 123145399984128] [client 127.0.0.1:50132] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello
+[Sun Dec 20 03:41:48.491294 2020] [cgi:error] [pid 34230:tid 123145401057280] [client 127.0.0.1:50133] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello
+[Sun Dec 20 03:43:29.474720 2020] [so:debug] [pid 34578] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:43:29.475198 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:43:29.475643 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:43:29.476123 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:43:29.476452 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:43:29.476956 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:43:29.477221 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module alias_module from /usr/libexec/apache2/mod_alias.so
+[Sun Dec 20 03:43:29.477894 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:43:29.478845 2020] [so:debug] [pid 34578:tid 4665880000] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:43:29.478874 2020] [http2:trace1] [pid 34578:tid 4665880000] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:43:29.480302 2020] [http2:warn] [pid 34578:tid 4665880000] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:43:29.485043 2020] [core:warn] [pid 34578:tid 4665880000] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:43:34.980461 2020] [cgi:error] [pid 34578:tid 123145577652224] [client 127.0.0.1:50145] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello.cgi
+[Sun Dec 20 03:43:37.637285 2020] [cgi:error] [pid 34578:tid 123145578725376] [client 127.0.0.1:50146] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello
+[Sun Dec 20 03:43:40.788987 2020] [cgi:error] [pid 34578:tid 123145579798528] [client 127.0.0.1:50147] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello.cgi
+[Sun Dec 20 03:43:46.019925 2020] [cgi:error] [pid 34578:tid 123145580871680] [client 127.0.0.1:50148] AH02812: attempt to invoke directory as script: /Users/i034796/src/learn/cgilrn/service
+[Sun Dec 20 03:45:02.626979 2020] [so:debug] [pid 34857] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:45:02.627405 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:45:02.627775 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:45:02.628086 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:45:02.628370 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:45:02.628731 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:45:02.629038 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module alias_module from /usr/libexec/apache2/mod_alias.so
+[Sun Dec 20 03:45:02.629441 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:45:02.630331 2020] [so:debug] [pid 34857:tid 4625223104] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:45:02.630367 2020] [http2:trace1] [pid 34857:tid 4625223104] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:45:02.631595 2020] [http2:warn] [pid 34857:tid 4625223104] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:45:02.635256 2020] [core:warn] [pid 34857:tid 4625223104] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:45:07.003830 2020] [cgi:error] [pid 34857:tid 123145324412928] [client 127.0.0.1:50154] AH02811: script not found or unable to stat: /Users/i034796/src/learn/cgilrn/servicehello
+[Sun Dec 20 03:45:57.274088 2020] [so:debug] [pid 34954] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:45:57.274435 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:45:57.274712 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:45:57.274966 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:45:57.275213 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:45:57.275513 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:45:57.275762 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module alias_module from /usr/libexec/apache2/mod_alias.so
+[Sun Dec 20 03:45:57.276066 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:45:57.276844 2020] [so:debug] [pid 34954:tid 4636736960] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:45:57.276968 2020] [http2:trace1] [pid 34954:tid 4636736960] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:45:57.278806 2020] [http2:warn] [pid 34954:tid 4636736960] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:45:57.283527 2020] [core:warn] [pid 34954:tid 4636736960] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:46:26.510702 2020] [so:debug] [pid 35072] mod_so.c(266): AH01575: loaded module mpm_event_module from /usr/libexec/apache2/mod_mpm_event.so
+[Sun Dec 20 03:46:26.511049 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module log_config_module from /usr/libexec/apache2/mod_log_config.so
+[Sun Dec 20 03:46:26.511335 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module mime_module from /usr/libexec/apache2/mod_mime.so
+[Sun Dec 20 03:46:26.511597 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module dir_module from /usr/libexec/apache2/mod_dir.so
+[Sun Dec 20 03:46:26.511887 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module authz_core_module from /usr/libexec/apache2/mod_authz_core.so
+[Sun Dec 20 03:46:26.512217 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module unixd_module from /usr/libexec/apache2/mod_unixd.so
+[Sun Dec 20 03:46:26.512481 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module alias_module from /usr/libexec/apache2/mod_alias.so
+[Sun Dec 20 03:46:26.512853 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module cgi_module from /usr/libexec/apache2/mod_cgi.so
+[Sun Dec 20 03:46:26.513661 2020] [so:debug] [pid 35072:tid 4572233152] mod_so.c(266): AH01575: loaded module http2_module from /usr/libexec/apache2/mod_http2.so
+[Sun Dec 20 03:46:26.513699 2020] [http2:trace1] [pid 35072:tid 4572233152] mod_http2.c(204): installing hooks
+[Sun Dec 20 03:46:26.514949 2020] [http2:warn] [pid 35072:tid 4572233152] AH02951: mod_ssl does not seem to be enabled
+[Sun Dec 20 03:46:26.515019 2020] [core:warn] [pid 35072:tid 4572233152] AH00098: pid file /Users/i034796/src/learn/cgilrn/logs/httpd.pid overwritten -- Unclean shutdown of previous Apache run?
+[Sun Dec 20 03:48:22.885938 2020] [cgi:error] [pid 35072:tid 123145407201280] [client 127.0.0.1:50184] AH01215: (13)Permission denied: exec of '/Users/i034796/src/learn/cgilrn/service/dumpenv' failed: /Users/i034796/src/learn/cgilrn/service/dumpenv
+[Sun Dec 20 03:48:22.886189 2020] [cgi:error] [pid 35072:tid 123145407201280] [client 127.0.0.1:50184] End of script output before headers: dumpenv
+[Sun Dec 20 03:48:55.623672 2020] [cgi:error] [pid 35072:tid 123145409347584] [client 127.0.0.1:50186] AH01215: (13)Permission denied: exec of '/Users/i034796/src/learn/cgilrn/service/dumpenv' failed: /Users/i034796/src/learn/cgilrn/service/dumpenv
+[Sun Dec 20 03:48:55.623924 2020] [cgi:error] [pid 35072:tid 123145409347584] [client 127.0.0.1:50186] End of script output before headers: dumpenv
