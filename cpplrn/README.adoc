@@ -1264,7 +1264,7 @@ S awaiter_flow(coroutine_state* coro_state, int suspension_type) {
         } else if (S is false) {
             M = awaiter.await_resume();
             return M; // return to Co-Routine with M as value of co_await(<expr>) and continue co-routine after the co_await
-        } else if (S is someother std::co_routine_handle) {
+        } else if (S is someother std::coroutine_handle) {
             S.resume();
             return ControlToCaller;
         }
