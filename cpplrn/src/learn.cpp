@@ -8,6 +8,8 @@
 #include "learn/prettyprint.hpp"
 #include "learn/structs.hpp"
 #include "learn/utilities.hpp"
+#include "learn/smartpointers.hpp"
+#include "learn/coroutines.hpp"
 
 void log(std::string_view message,
          const std::experimental::source_location& location =
@@ -160,7 +162,8 @@ int main() {
   //  demo_auto_decls();
   //  demo_sort_with_tie();
   //  demo_std_invoke();
-  demo_structs1();
+  // demo_structs1();
+    demo_smart_pointers();
   // return 0;
 }
 

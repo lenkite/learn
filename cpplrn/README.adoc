@@ -32,6 +32,21 @@ int length(not_null<zstring> p);
 
 === auto
 
+* Prefer to use auto for local variables using the left-to-right initialization style.”
+This means keeping the variable on the left, followed by an equals sign, and then the type on the right side. 
+
+* With guaranteed copy elision introduced in C++17, the statement `auto x = Foo{}` is identical to `Foo x{};` that is, the language guarantees that there is no temporary object that needs to be moved or copied in this case. This means that we can now use the left-to-right initialization style without worrying about performance and we can also use it for non-movable/non-copyable types, such as std::atomic or std::mutex. 
+
+[small]#Excerpt From: Andrist, Bjö; Sehr, Viktor; Garney, Ben. “C++ High Performance.”# 
+
+[source,cpp]
+----
+auto i = 0;
+auto x = Foo{};
+auto y = create_object();
+auto z = std::mutex{};     // OK since C++17”
+----
+
 * The auto specifier is only a placeholder for the type, not for the const/ volatile and references specifiers.
 If you need a const/volatile and/or reference type, then you need to specify them explicitly.
 
@@ -1051,3 +1066,217 @@ size(foo5)=24
 ----
 
 
+== Coroutines
+
+A coroutine is a function that can suspend execution to be resumed later.
+A function is considered a co-routine if it its body contains the `co_await`, `co_yield` or `co_return` operators.
+
+Formally, let `R` and `Args...` denote the return type and parameter type list of a coroutine respectively,
+`C` and `cvqual` (if any) denote the class type to which the coroutine belongs and its cv-qualification respectively if
+it is defined as a non-static member function.
+
+Given the above, a co-routine can fit into one of the following forms.
+[source,cpp]
+----
+R = F(Args...)          // F1
+R = C::F(Args..) const  // F2
+R = C::F(Args...) &&    // F3
+----
+
+A co-routine has various components and flows described below.
+
+
+=== Co-Routine Return type `R`
+The instance of `R` is formally called the `return_object` and is constructed by the `promise_type` described later.
+
+`R` should ideally possess the following characteristics.
+
+1. Ideally have a member for the computed result. This is value of `<expr>` in  `co_return(expr)` and should be set by the
+promise. The member can be omitted for a bare `co_return` or a void-returning co-routine.
+2. Ideally have a member for an exception to hold any exception that can be thrown from the co-routine body. This value
+should be set by the promise.
+3. For lazy co-routines: Ideally have a member `std::coroutine_handle<promise_type> coro_handle`.  This `coro_handle` member
+is needed to resume the co-routine.
+4. For lazy co-routines: Ideally have a method that can be invoked by the caller of the co-routine to resume the co-routine.
+This method should check if co-routine is done via `coro_handle.done()` and if so should return the computed result. If the
+co-routine is not done, call `coro_handle.resume()` and then return the computed result.
+5. Should have a destructor `~R` that does: `if (coro_handle) coro_handle.destroy()`.
+
+
+=== Co-Routine Promise Type `promise_type`
+The `promise` object is constructed from the `promise_type` and is manipulated from inside the coroutine.
+The coroutine submits its result or exception through this object.
+
+The compiler first looks for for `promise_type` nested inside `R` i.e `R::promise_type`. If this is _not_ found, then
+the compiler looks for the `promise_type` of a co-routine which corresponding to one of the above 3 forms:
+[source,cpp]
+----
+std::coroutine_traits<R, Args...>::promise_type             // P1
+std::coroutine_traits<R, C cvqual&, Args...>::promise_type  // P2
+std::coroutine_traits<R, C cvqual&&, Args...>::promise_type // P3
+----
+For example:
+[source,cpp]
+----
+task<float>foo(std::string x, bool flag);  => std::coroutine_traits<task<float>, std::string, bool>::promise_type.
+
+task<void> my_class::method1(int x) const; => std::coroutine_traits<task<void>, my_class const&, int>::promise_type.
+
+task<void> my_class::method1(int x) &&;,   => std::coroutine_traits<task<void>, my_class&&, int>::promise_type.
+----
+The `promise_type` may be default constructible or may have a constructor that takes the co-routine parameters.
+Ex `promise_type(Args...)`.
+The `promise_type` should possess the following characteristics.
+
+1. Must ideally possess a `R return_object` member.
+2. The promise constructor should use `the std::coroutine_handle<promise_type>::from_promise(*this)}` to obtain a `std::coroutine_handle`
+and pass the same to the constructor of `R`.
+3. `awaitable_type initial_suspend()` where `awaitable` is ideally one of `std::suspend_always` or `std::suspend_never`
+4. `awaitable_type final_suspend()` where `awaitable` is ideally  one of `std::suspend_always` or `std::suspend_never`.
+5. `R get_return_object()`  returns the `return_object` member.
+6. `return_void` or `return_value(<expr>)` where expr corresponds to `co_return(<expr>)` if any used inside co-routine.
+When invoked by the enriched co-routine code, the promise should ideally set the value of `<expr>` - which is the _real_ result -
+inside the `return_object`.  One may ask - why can't the promise hold this value within itself as a member ? The answer
+is that if the awaitable given by `final_suspend` does not suspend, then the co-routine state (which contains the promise
+object). is destroyed. See "Co-Routine Flow" to understand this.
+7. `void unhandled_exception(<exception>)`. Called when co-routine body throws exception. Ideally should stow the exception
+in the `return_object`.
+8.  `yield_value(<expr>)`. Called when co-routine body has a `co_yield <expr>` statement. (TODO: describe me more).
+
+
+=== Co-Routine Handle `std::coroutine_handle`
+
+The `coroutine_handle`, manipulated from outside the coroutine. This is a _non-owning_ handle used to resume
+execution of the coroutine or to destroy the coroutine frame.
+It has the type: `std::coroutine_handle<promise_type>::coroutine_handle`
+
+=== Co-Routine State `internal::coroutine_state`
+The `coroutine state` is a internal, heap-allocated  object that contains
+
+1. The co-routine parameters - `Args...`. (These are copied/moved by value or reference depending on parameter types)
+2. The promise object. (constructed by default construction of `promise_type` or construction via `promise_type(Args..)` constructor.
+3. Current suspension point, so that `coroutine_handle.resume()` knows where to continue and `coroutine_handle.destroy()` knows
+what local variables were in scope.
+
+
+=== Co-Routine Main Flow
+
+The compiler enriches the body of the co-routine by inserting code before and after as illustrated below. Any time one
+encounters a `co_await <expr>` a separate "Awaiter Workflow" is initiated.
+
+The `return_object` is returned to the caller or resumer of the co-routine. (resumer need not be the original caller
+since co-routine can be resumed in another thread via the coroutine_handle) before suspending the co-routine.
+
+.Enriched  Co-Routine
+[source,cpp]
+----
+R my_coroutine(Args... args) {
+
+coroutine_state* coro_state = new coroutine_state(std:forward<Args>(args));
+// 1. constructs co-routine state with co-routine params. The promise object will be internally constructed within the coroutine_state via the promise_type's construuctor
+
+R return_object = coro_state->promise.get_return_oject();
+// 2. Keeps the return object in a local variable. Returned on first suspend or after co-routine runs to completion and execution returns to caller.
+
+// Any exception thrown up to and including 2.) propagates back to the caller and is not placed in the promise object.
+
+co_await coro_state->promise.initial_suspend(); //3. initial_suspend usually returns std::suspend_always or std::suspend_never
+try {
+    // co-routine statements
+    co_await <expr>
+    // co-routine statements
+    if (co_return <expr>) {
+        coro_state->promise.return_value(<expr>); //Obviously the promise is expected to save <expr> value internally.
+   } else {
+        coro_state->promise.return_void();
+   }
+} catch(...) {
+    promise.unhandled_exception();
+}
+finally:
+ co_await promise.final_suspend();
+ delete coro_state; //destroy co-routine state, which also destroys promise object and copies of args if any.
+}
+----
+
+
+=== Co-Routine Awaitable Type: `awaitable_type`
+
+The unary operator `co_await` suspends a coroutine and returns control to the caller.
+
+Given a `co_await(<expr>)`, an `awaitable` must be convertible to an `awaiter` using the following logic.
+[source,cpp]
+----
+    if (is_initial_suspend || is_final_suspend || is_yield
+            || !has_member(promise_type::await_transform)) {
+        awaitable = <expr>;
+    } else {
+        awaitable = coro_state->promise.await_transform(<expr>);
+    }
+    if (has_operator(awaitable::operator co_await)) {
+        awaiter = operator co_await(awaitable);
+    } else {
+        awaiter = awaitable;
+    }
+----
+
+=== Co-Routine Awaiter Type: `awaiter_type`
+The `awaiter` is computed from the `<expr>` in `co_await <expr>` using logic above.
+
+An `awaiter` is called by the co-routine machinery to suspend or resume a co-routine. An `awaiter_type` must possess
+the following:
+
+. `bool await_ready()`
+. `S await_suspend` where S may be one of: `void`, `bool` or `std::coroutine_handle`. In other words, `await_suspend`
+    may have one of the following forms:
+    .. `void await_suspend(std::coroutine_handle<promise_type>)`
+    .. `bool await_suspend(std::coroutine_handle<promise_type>)`
+    .. `std::coroutine_handle await_suspend(std::coroutine_handle<promise_type>)`
+. `M await_resume()`
+
+
+=== Co-Routine Awaiter Flow
+
+Given a `co_await(<expr>)`, an `awaitable` is first converted to an `awaiter` using the above logic.
+Then the awaiter flow executes as below:
+[source,cpp]
+----
+S awaiter_flow(coroutine_state* coro_state, int suspension_type) {
+    if (suspension_type is initial_suspend or  final_suspend or  is_yield}
+            || !has_member(promise_type::await_transform)) {
+        awaitable = <expr>;
+    } else {
+        awaitable = coro_state->promise.await_transform(<expr>);
+    }
+    if (has_operator(awaitable::operator co_await)) {
+        awaiter = operator co_await(awaitable);
+    } else {
+        awaiter = awaitable;
+    }
+    if (awaiter.await_ready()) {
+        M = awaiter.await_resume();
+        return M; // return to Co-Routine with M as value of co_await(<expr>) and continue co-routine after the co_await
+    } else {
+        std::coroutine_handle<promise_type> coro_handle = coro_state->suspend_coroutine();
+        S = awaiter.await_suspend(coro_handle);
+        if (S is void || S is true) {
+            return ControlToCaller; // /Co-Routine remains suspended, control returned to caller.
+        } else if (S is false) {
+            M = awaiter.await_resume();
+            return M; // return to Co-Routine with M as value of co_await(<expr>) and continue co-routine after the co_await
+        } else if (S is someother std::co_routine_handle) {
+            S.resume();
+            return ControlToCaller;
+        }
+    }
+}
+
+----
+
+
+
+
+=== Limitations
+
+Coroutines cannot use variadic arguments, plain return statements, or placeholder return types (auto or Concept).
+Constexpr functions, constructors, destructors, and the main function cannot be coroutines.

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 and CSS3 Notes</title>
+</head>
+
+<body>
+    <header>
+        <h1>HTML5 and CSS3 Notes</h1>
+    </header>
+    <nav>
+        ToC goes here
+    </nav>
+    <article>
+        <h1>Layout</h1>
+        <section>
+            <h1>Block Formatting Context</h1>
+            A new BFC is created any time an element
+            <ul>
+                <li>is the root element</li>
+                <li>is floated </li>
+                <li>has <code>overflow:  !(visible  or clip)</code></li>
+                <li>has <code>position:  !(absolute or fixed) </code></li>
+                <li>has <code>contain: layout, content or paint.</code></li>
+                <li>has <code>display: inline-block</code></li>
+                <li>has <code> display: inline-table or table-cell or table-caption</code></li>
+                <li>is an anonymous table cell implicitly created by the elements <code>display: table, table-row, table-row-group, table-header-group, table-footer-group</code>
+                    which is the default for HTML tables, table rows, table bodies, table headers, and table footers, respectively
+                </li>
+                <li>is a flex item (direct child of the element with <code>display: flex or inline-flex</code> <em>and</em> is not neither a flex nor grid nor table container by <em>itself</em></li>
+                <li>is a grid item (direct child of the element with <code>display: grid or inline-grid</code> <em>and</em> is not neither a flex nor grid nor table container by <em>itself</em></li>
+                <li> is a Multicol container (an elements where `column-count` or `column-width` isn't auto.</li>
+            </ul>
+
+            How to get a snippet and its preview as like in:
+            https://www.joshwcomeau.com/animation/css-transitions/
+Excerpt From: Rachel Andrew. “The New CSS Layout.” Apple Books. 
+
+            Example:
+            “The outer container collapses because nothing is holding it open—the float is out of flow.”
+            Explained in depth at <a href=https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context">MDC BFC</a>
+        </section>
+
+    </article>
+
+    <aside>
+        See
+        https://rscss.io/nested-components.html
+    </aside>
+</body>
+
+
+</html>
