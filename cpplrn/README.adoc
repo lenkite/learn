@@ -1089,18 +1089,26 @@ A co-routine has various components and flows described below.
 === Co-Routine Return type `R`
 The instance of `R` is formally called the `return_object` and is constructed by the `promise_type` described later.
 
-`R` should ideally possess the following characteristics.
+For co-routines that do not finally suspend ie eagerly run to completion, the co-routine state is destroyed before control
+returns to caller of co-routine. For eager coroutines, `R` should ideally possess the following characteristics:
 
-1. Ideally have a member for the computed result. This is value of `<expr>` in  `co_return(expr)` and should be set by the
-promise. The member can be omitted for a bare `co_return` or a void-returning co-routine.
-2. Ideally have a member for an exception to hold any exception that can be thrown from the co-routine body. This value
+1. Ideally have a `shared_ptr<T> result_holder` member to hold the computed result. This holds the value of `<expr>` in  `co_return(expr)` and should be set by the
+promise. The member can be omitted for a bare `co_return` or a void-returning co-routine. `result_holder` will be set by the promise.
+2. Ideally have a member `std::exception_ptr exception_holder` to hold any exception that can be thrown from the co-routine body. `exception_holder`
 should be set by the promise.
-3. For lazy co-routines: Ideally have a member `std::coroutine_handle<promise_type> coro_handle`.  This `coro_handle` member
-is needed to resume the co-routine.
-4. For lazy co-routines: Ideally have a method that can be invoked by the caller of the co-routine to resume the co-routine.
-This method should check if co-routine is done via `coro_handle.done()` and if so should return the computed result. If the
+3. Possess a constructor like: `R(shared_ptr<T> result_holder, exception_ptr exception_holder)`
+4. Possess `get_result()` and `get_exception()` members.
+
+For co-routines that finally suspend, the co-routine state is not destroyed before control returns to caller. For suspending
+coroutines, `R` should ideally possess the following characteristics:
+
+1. Ideally have a member `std::coroutine_handle<promise_type> coro_handle`.  This `coro_handle` member
+is needed to resume the co-routine. Should possess a constructor that accepts `coro_handle`.
+2. Ideally possess a `T get_result()` method that can be invoked by the caller of the co-routine to resume the co-routine.
+This method should check if co-routine is done via `coro_handle.done()` and if so should get the result from the promise
+via `coro_handle.promise().result`. If the
 co-routine is not done, call `coro_handle.resume()` and then return the computed result.
-5. Should have a destructor `~R` that does: `if (coro_handle) coro_handle.destroy()`.
+3. Should have a destructor `~R` that does: `if (coro_handle) coro_handle.destroy()`.
 
 
 === Co-Routine Promise Type `promise_type`
@@ -1128,18 +1136,25 @@ The `promise_type` may be default constructible or may have a constructor that t
 Ex `promise_type(Args...)`.
 The `promise_type` should possess the following characteristics.
 
-1. Must ideally possess a `R return_object` member.
-2. The promise constructor should use `the std::coroutine_handle<promise_type>::from_promise(*this)}` to obtain a `std::coroutine_handle`
+. Promises that don't finally suspend should ideally possess `shared_ptr<T> result_holder` and `exception_ptr exception_holder` members.
+. Promises that finally suspend can simply possess `T result` and `exception_ptr exception` members. These should be accessible by `R`. (type of `return_object`).
+. Promises that finally suspend should use `the std::coroutine_handle<promise_type>::from_promise(*this)}` to obtain a `std::coroutine_handle`
 and pass the same to the constructor of `R`.
-3. `awaitable_type initial_suspend()` where `awaitable` is ideally one of `std::suspend_always` or `std::suspend_never`
-4. `awaitable_type final_suspend()` where `awaitable` is ideally  one of `std::suspend_always` or `std::suspend_never`.
-5. `R get_return_object()`  returns the `return_object` member.
-6. `return_void` or `return_value(<expr>)` where expr corresponds to `co_return(<expr>)` if any used inside co-routine.
+. `awaitable_type initial_suspend()` where `awaitable` is ideally one of `std::suspend_always` or `std::suspend_never`
+. `awaitable_type final_suspend()` where `awaitable` is ideally  one of `std::suspend_always` or `std::suspend_never`.
+. `R get_return_object()` Eager promises constructs R `return_object` using constructor that takes `result_holder` and `exception_ptr`
+. `return_void` or `return_value(<expr>)` where expr corresponds to `co_return(<expr>)` if any used inside co-routine.
 When invoked by the enriched co-routine code, the promise should ideally set the value of `<expr>` - which is the _real_ result -
-inside the `return_object`.  One may ask - why can't the promise hold this value within itself as a member ? The answer
+into `result_holder`.  One may ask - why can't the promise hold this value within itself as a member ? The answer
 is that if the awaitable given by `final_suspend` does not suspend, then the co-routine state (which contains the promise
-object). is destroyed. See "Co-Routine Flow" to understand this.
-7. `void unhandled_exception(<exception>)`. Called when co-routine body throws exception. Ideally should stow the exception
+object) is destroyed. See "Co-Routine Flow" to understand this.
+. `void unhandled_exception()`. Called when co-routine body throws exception. Ideally should get the current exception
+via `std::current_exception` and assign the same to `exception_ptr`.
+****
+Some content here
+****
+
+stow the exception
 in the `return_object`.
 8.  `yield_value(<expr>)`. Called when co-routine body has a `co_yield <expr>` statement. (TODO: describe me more).
 

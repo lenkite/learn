@@ -163,8 +163,9 @@ int main() {
   //  demo_sort_with_tie();
   //  demo_std_invoke();
   // demo_structs1();
-    demo_smart_pointers();
-  // return 0;
+//    demo_smart_pointers();
+    demo_coroutines();
+   return 0;
 }
 
 class flat_land {
