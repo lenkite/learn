@@ -2,16 +2,29 @@ package golrn
 
 import (
 	"fmt"
+	"golang.org/x/xerrors"
 	"runtime"
 )
+var ModulePath  = "github.com/lenkite/learn/golrn"
 
 func DemoErrors() {
 	fmt.Println("## Errors")
-	CustomErrors()
-	ErrorWrapChain()
-	ErrorWithStackTrace()
+	//CustomErrors()
+	//ErrorWrapChain()
+	//ErrorWithStackTrace()
+	//XError()
 }
 
+
+func xA() error {
+	return xerrors.Errorf("bad value: %d", 42)
+}
+func xB() error {
+	return xerrors.Errorf("in xB: %w", xA())
+}
+func xC() error {
+	return xerrors.Errorf("in xC: %w", xB())
+}
 
 
 
@@ -35,12 +48,13 @@ func CustomErrors() {
 func ErrorWrapChain() {
 	fmt.Println("### CustomErrors")
 	err := singo()
-	fmt.Println("Singo: " , err)
+	fmt.Println("(ErrorWrapChain): " , err)
 }
 
 func ErrorWithStackTrace() {
 	fmt.Println("### ErrorWithStackTrace")
-	fmt.Println(stC())
+	fmt.Println("(ErrorWithStackTrace)", stC())
+	//fmt.Println(stA())
 }
 
 func stA() error {
@@ -58,14 +72,17 @@ func Errorf(format string, args ...interface{}) error {
 	pc := make([]uintptr, 1)
 	// Skip 2 levels to get the caller
 	n := runtime.Callers(2, pc)
-	var file, function string
+	var _, function string
 	var line int
 	if n > 0 {
 		frames := runtime.CallersFrames(pc[:n])
 		frame, _ := frames.Next()
-		file, function, line = frame.File, frame.Function, frame.Line
+		_, function, line = frame.File, frame.Function, frame.Line
+		function = function[len(ModulePath):]
 	}
-	return fmt.Errorf("%s,%s,%d " + format, file, function, line, args)
+	args = append([]interface{}{function, line}, args...)
+	format = "(%s|%d) " + format
+	return fmt.Errorf(format, args...)
 }
 func singo() error {
 	err := tringo()

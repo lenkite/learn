@@ -23,6 +23,4 @@ endif()
 include_directories(include) #global include for all target
 add_executable(learn  src/learn.cpp include/learn/utilities.hpp include/learn/structs.hpp include/learn/vect.hpp include/learn/coroutines.hpp)
 target_compile_features(learn PUBLIC cxx_std_20)
-target_compile_options(learn  PUBLIC "-fcoroutines")
-
 
