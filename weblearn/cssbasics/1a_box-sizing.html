@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Standalone Boxes On Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Helvetica, serif;
+            letter-spacing: 1px;
+        }
+
+        .box {
+            background-color: #000;
+            color: aliceblue;
+            margin: 10px;
+            padding: 5px; /* remove this and box is of same size*/
+            width: 80px;
+            text-align: center;
+        }
+
+        #box1 {
+            box-sizing: content-box;
+        }
+
+        #box2 {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box1">BOX1 with box-sizing as content-box</div>
+    <div class="box" id="box2">BOX2 with box-sizing as border-box</div>
+</body>
+
+</html>

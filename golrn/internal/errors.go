@@ -1,11 +1,14 @@
 package golrn
 
 import (
+	"errors"
 	"fmt"
-	"golang.org/x/xerrors"
 	"runtime"
+
+	"golang.org/x/xerrors"
 )
-var ModulePath  = "github.com/lenkite/learn/golrn"
+
+var ModulePath = "github.com/lenkite/learn/golrn"
 
 func DemoErrors() {
 	fmt.Println("## Errors")
@@ -13,8 +16,17 @@ func DemoErrors() {
 	//ErrorWrapChain()
 	//ErrorWithStackTrace()
 	//XError()
+	JoinUnwrap()
 }
-
+func JoinUnwrap() {
+	var NotFoundHTTPCode = errors.New("404")
+	var UnauthorizedHTTPCode = errors.New("401")
+	var RecordNotFoundErr = errors.New("DB: record not found")
+	var joinedErr = errors.Join(NotFoundHTTPCode, UnauthorizedHTTPCode, RecordNotFoundErr)
+	fmt.Printf("joinedErr:  <%s>\n", joinedErr)
+	unwrappedErr := errors.Unwrap(joinedErr)
+	fmt.Printf("unwrappedErr:  <%s>\n", unwrappedErr)
+}
 
 func xA() error {
 	return xerrors.Errorf("bad value: %d", 42)
@@ -25,8 +37,6 @@ func xB() error {
 func xC() error {
 	return xerrors.Errorf("in xC: %w", xB())
 }
-
-
 
 func CustomErrors() {
 	fmt.Println("### CustomErrors")
@@ -48,7 +58,7 @@ func CustomErrors() {
 func ErrorWrapChain() {
 	fmt.Println("### CustomErrors")
 	err := singo()
-	fmt.Println("(ErrorWrapChain): " , err)
+	fmt.Println("(ErrorWrapChain): ", err)
 }
 
 func ErrorWithStackTrace() {
@@ -115,10 +125,10 @@ func sillyFuncA(a int) (int, error) {
 			Message: fmt.Sprintf("Not odd %d", a),
 		}
 	}
-	return a*a, nil
+	return a * a, nil
 }
 
-func sillyFuncB(b int) (int , *StatusErr) {
+func sillyFuncB(b int) (int, *StatusErr) {
 	fmt.Println("--Inside sillyFuncB, b: ", b)
 	if b%2 == 1 {
 		return 0, &StatusErr{
@@ -126,7 +136,7 @@ func sillyFuncB(b int) (int , *StatusErr) {
 			Message: fmt.Sprintf("Not even %d", b),
 		}
 	}
-	return b*b, nil
+	return b * b, nil
 }
 
 type Status int
@@ -135,4 +145,3 @@ const (
 	NotOdd Status = iota + 1
 	NotEven
 )
-

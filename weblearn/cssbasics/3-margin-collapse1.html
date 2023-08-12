@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margin Collapsing</title>
+    <style>
+        html {
+            font-family: helvetica, arial, sans-serif;
+            letter-spacing: 1px;
+            padding-top: 10px;
+        }
+
+        .following {
+            background-color: lightgray;
+        }
+
+        p {
+            border: 1px solid black;
+        }
+
+        .container {
+            background-color: lightcoral;
+        }
+
+        .item {
+            float: left;
+            width: 200px;
+            height: 200px;
+            background-color: rebeccapurple;
+            color: white;
+            padding: 2px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <p style="border: 1px solid black">
+        <b>Line boxes</b> are the boxes that wrap each line of text. You can see
+        the difference between line boxes and their containing block if you float an
+        item and then follow it by a block that has a background color.
+
+        In the following example, the line boxes following the floated
+        are shortened to wrap around the float. The background of the box runs behind
+        the float, as the floated item has been taken out of flow.
+    </p>
+
+
+    <div class="container">
+        <div class="item">Floated</div>
+        <p class="following">This text is following the float, the line boxes are shortened to make room for the float
+            but the box of the element still takes position in normal flow. Observe
+            that container background does not fill space to match height of float and p's top margin is collapsed.
+            To remove the collapsing margin add a border to the container.
+            See MDN margin collapse rules.
+        </p>
+        I am in the wrapping container
+    </div>
+
+
+    <p style="clear:both;padding-top: 10px">
+        Elements either participate in the formatting context of their containing block
+        or establish an independent formatting context. A grid container, for example, establishes a new Grid
+        Formatting
+        Context for its children.
+    </p>
+    <p>
+        <b>Independent formatting contexts</b> <i>contain</i> floats, and margins do not collapse across formatting
+        context
+        boundaries. Therefore, creating a new block formatting context can ensure that floats and margins remain
+        inside
+        a box. To do this, add display: flow-root to the box on which you wish to create a new block formatting
+        context.
+    </p>
+    <div class="container" style="display: flow-root">
+        <div class="item">Floated</div>
+        <p class="following">Paragraph following the float. Observe that this para is sligly
+            below compared to the previous example since its margin did not collapse
+            thanks to <code>display:flow-root</code> on the parent container
+        </p>
+        I am in the wrapping container and the container height takes up height of float.
+    </div>
+</body>
+</html>

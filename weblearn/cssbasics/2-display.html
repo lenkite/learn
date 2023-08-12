@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demonstrates Use of Display</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-family: helvetica, arial, sans-serif;
+        letter-spacing: 1px;
+        padding-top: 10px;
+    }
+
+    article {
+        background-color: red;
+    }
+
+    article span {
+        background-color: black;
+        color: white;
+        margin: 1px;
+    }
+
+    article,
+    span {
+        padding: 10px;
+        border-radius: 7px;
+    }
+
+    article,
+    div {
+        margin: 5px;
+    }
+
+    .container1 {
+        display: flex;
+        background-color: lightgray;
+    }
+
+    .container1>* {
+        border: 1px solid green;
+        background: lightpink
+    }
+    p {
+        padding: 5px;
+    }
+</style>
+
+
+<body>
+    <p>
+    &nbsp;Read <a href="https://www.w3.org/TR/css-display-3/#the-display-properties">CSS Display Spec</a>
+    </p>
+    <article class="container">
+        <span>First</span>
+        <span>Second</span>
+        <span>Third</span>
+    </article>
+
+    <article class="container">
+        <span>First</span>
+        <span>Second</span>
+        <span>Third</span>
+    </article>
+
+    <div>
+        <label for="display">Choose a display value:</label>
+        <select id="display">
+            <option selected>block</option>
+            <option>inline</option>
+            <option>inline-block</option>
+            <option>none</option>
+            <option>flex</option>
+            <option>inline-flex</option>
+            <option>grid</option>
+            <option>inline-grid</option>
+            <option>table</option>
+            <option>list-item</option>
+        </select>
+    </div>
+
+    <hr />
+    <p>
+    The display type of an element defines the outer display type; this dictates
+    how the box displays alongside other elements in the same formatting
+    context. It also defines the inner display type, which dictates how boxes
+    inside this element behave. We can see this very clearly when considering a
+    flex layout. In the example below I have a div, which I have given
+    display: flex. The flex container behaves like a block element: it displays
+    on a new line and takes up all of the space it can in the inline direction.
+    This is the outer display type of block.
+    </p>
+    
+    <p>
+    The flex items however are participating in a flex formatting context,
+    because their parent is the element with <code>display: flex</code>, which has an inner
+    display type of flex, establishing the flex formatting context for the direct children.
+
+    The flex items  <i>inner</i> display type is <code>flow</code> however, meaning that their children participate in normal flow
+    </p>
+    <div class="container1">
+        <div>Flex Item</div>
+        <div>Flex Item</div>
+        <div>
+            <div>Children</div>
+            <div>are in</div>
+            <div>normal flow</div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    const articles = document.querySelectorAll(".container");
+    const select = document.querySelector('select');
+    console.log(select)
+    select.addEventListener('change', () => {
+        articles.forEach((article) => {
+            article.style.display = select.value;
+        })
+    });
+
+</script>
+
+</html>

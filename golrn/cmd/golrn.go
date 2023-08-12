@@ -37,8 +37,8 @@ func main() {
 	// golrn.DemoMaps()
 	// golrn.DemoStructs()
 	//golrn.DemoControlStructures()
-	//golrn.DemoErrors()
-	golrn.DemoGenerics()
-	//golrn.DemoGoRoutines()
+	golrn.DemoErrors()
+	//golrn.DemoGenerics()
 
+	//golrn.DemoGoRoutines()
 }

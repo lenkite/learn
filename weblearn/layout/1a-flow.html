@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow and Rhythm wihh Owl Selector</title>
+    <style>
+        /**
+        * FLOW
+        *
+        * A tiny utility that helps with rhythm by adding margin to siblings
+        *
+        * --flow-space: The amount of space between siblings: Default 1em;
+        */
+        .flow {
+            --flow-space: 1em;
+        }
+
+        .flow>*+* {
+            margin-top: 1em;
+            margin-top: var(--flow-space, 1em);
+        }
+
+        .sketchy {
+            padding: 2rem;
+            border: 3px solid #333333;
+            border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+            background: #ffffff;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        /* Media component */
+        .media {
+            --flow-space: 4rem;
+        }
+        .media__img {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="https://24ways.org/2018/managing-flow-and-rhythm-with-css-custom-properties/">Managing Flow and Rhythm
+            with CSS Custom Properties</a>
+    </header>
+
+    <main class="flow">
+        <h1>Unrelated components with <b>flow</b></h1>
+        <section class="sketchy media">
+            <img class="media__img" src="https://source.unsplash.com/collection/139386/400x400"
+                alt="A heck of a nice cat" />
+            <article class="media__content flow">
+                <h2>Cats are cool and here’s why</h2>
+                <p>Those long whiskers around your cats’ mouth and face which form a vital part of their sense of touch.
+                    These whiskers are attached to nerve cells and are used to judge the size of openings as well as
+                    providing your cat information about everything he/she touches, as well as shifts in air pressure.
+                </p>
+            </article>
+        </section>
+        <section class="flow features">
+            <h2>Need more reasons why cats are cool?</h2>
+            <ul class="features__list">
+                <li class="feature sketchy">
+                    <div class="feature__decor" aria-hidden="true"></div>
+                    <p class="feature__content">Cats can retract their front claws. This keeps them sharp so they can be
+                        used for climbing and of course, as effective weapons!</p>
+                </li>
+                <li class="feature sketchy">
+                    <div class="feature__decor" aria-hidden="true"></div>
+                    <p class="feature__content">Cats can travel at speeds of up to 30km per hour.</p>
+                </li>
+                <li class="feature sketchy">
+                    <div class="feature__decor" aria-hidden="true"></div>
+                    <p class="feature__content">Around 75% of cats respond to catnip. This herb stimulates those cats
+                        that are genetically programmed to respond.</p>
+                </li>
+            </ul>
+        </section>
+        <footer>
+            <p>Facts <i>borrowed</i> from <a href="https://www.purina.com.au/cats/care/facts">Purina</a>.</p>
+        </footer>
+    </main>
+</body>
+
+</html>
